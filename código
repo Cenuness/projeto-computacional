@@ -1,0 +1,261 @@
+#include <iostream>
+#include <cmath>
+#include <vector>
+using namespace std;
+
+// Definindo uma struct para representar uma medida com sua incerteza
+struct Medida {
+    double valor;
+    double incerteza;
+};
+
+void menu() {
+    cout << "Escolha uma opcao:" << endl;
+    cout << "1 - Erro aleatorio" << endl;
+    cout << "2 - Soma de medidas" << endl;
+    cout << "3 - Subtracao de medidas" << endl;
+    cout << "4 - Multiplicacao de medidas" << endl;
+    cout << "5 - Divisao de medidas" << endl;
+    cout << "6 - Potencia de uma medida" << endl;
+    cout << "7 - Multiplicacao por escalar de uma medida" << endl;
+    cout << "8 - Discrepancia de medidas" << endl;
+    cout << "" << endl;
+    cout << "Digite a opcao desejada:" << endl;
+}
+
+void ErroAleatorio() {
+    int n;
+    cout << "Digite o numero de medidas:" << endl;
+    cin >> n;
+
+    vector<Medida> medidas(n);
+    double soma = 0, media, sdv = 0, dp, dpm;
+
+    for (int i = 0; i < n; i++) {
+        cout << "Digite a medida " << i + 1 << ":" << endl;
+        cin >> medidas[i].valor;
+        soma += medidas[i].valor;
+    }
+
+    media = soma / n;
+    cout << "Esta eh a media das medidas: " << media << endl;
+
+    for (int i = 0; i < n; i++) {
+        sdv += pow(medidas[i].valor - media, 2);
+    }
+    dp = sqrt(sdv / (n - 1));
+    cout << "Este eh o desvio padrao: " << dp << endl;
+
+    dpm = dp / sqrt(n);
+    cout << "Este eh o desvio padrao da media/erro aleatorio: " << dpm << endl;
+}
+
+void Soma() {
+    int vezes;
+    cout << "Digite quantas vezes deseja realizar a operacao:" << endl;
+    cin >> vezes;
+
+    for (int k = 0; k < vezes; k++) {
+        Medida m1, m2;
+        cout << "Digite a melhor estimativa da primeira medida:" << endl;
+        cin >> m1.valor;
+        cout << "Digite a incerteza da primeira medida:" << endl;
+        cin >> m1.incerteza;
+        cout << "Digite a melhor estimativa da segunda medida:" << endl;
+        cin >> m2.valor;
+        cout << "Digite a incerteza da segunda medida:" << endl;
+        cin >> m2.incerteza;
+
+        double MelhorEstimativa = m1.valor + m2.valor;
+        double IncertezaFinal = m1.incerteza + m2.incerteza;
+
+        cout << "Resultado da operacao " << k + 1 << ":" << endl;
+        cout << MelhorEstimativa << " +/- " << IncertezaFinal << endl;
+    }
+}
+
+void Subtracao() {
+    int vezes;
+    cout << "Digite quantas vezes deseja realizar a operacao:" << endl;
+    cin >> vezes;
+
+    for (int k = 0; k < vezes; k++) {
+        Medida m1, m2;
+        cout << "Digite a melhor estimativa da primeira medida:" << endl;
+        cin >> m1.valor;
+        cout << "Digite a incerteza da primeira medida:" << endl;
+        cin >> m1.incerteza;
+        cout << "Digite a melhor estimativa da segunda medida:" << endl;
+        cin >> m2.valor;
+        cout << "Digite a incerteza da segunda medida:" << endl;
+        cin >> m2.incerteza;
+
+        double MelhorEstimativa = m1.valor - m2.valor;
+        double IncertezaFinal = m1.incerteza + m2.incerteza;
+
+        cout << "Resultado da operacao " << k + 1 << ":" << endl;
+        cout << MelhorEstimativa << " +/- " << IncertezaFinal << endl;
+    }
+}
+
+void Multiplicacao() {
+    int vezes;
+    cout << "Digite quantas vezes deseja realizar a operacao:" << endl;
+    cin >> vezes;
+
+    for (int k = 0; k < vezes; k++) {
+        Medida m1, m2;
+        cout << "Digite a melhor estimativa da primeira medida:" << endl;
+        cin >> m1.valor;
+        cout << "Digite a incerteza da primeira medida:" << endl;
+        cin >> m1.incerteza;
+        cout << "Digite a melhor estimativa da segunda medida:" << endl;
+        cin >> m2.valor;
+        cout << "Digite a incerteza da segunda medida:" << endl;
+        cin >> m2.incerteza;
+
+        double MelhorEstimativa = m1.valor * m2.valor;
+        double IncertezaFinal = (m1.valor * m2.incerteza) + (m2.valor * m1.incerteza);
+
+        cout << "Resultado da operacao " << k + 1 << ":" << endl;
+        cout << MelhorEstimativa << " +/- " << IncertezaFinal << endl;
+    }
+}
+
+void Divisao() {
+    int vezes;
+    cout << "Digite quantas vezes deseja realizar a operacao:" << endl;
+    cin >> vezes;
+
+    for (int k = 0; k < vezes; k++) {
+        Medida m1, m2;
+        cout << "Digite a melhor estimativa da primeira medida:" << endl;
+        cin >> m1.valor;
+        cout << "Digite a incerteza da primeira medida:" << endl;
+        cin >> m1.incerteza;
+        cout << "Digite a melhor estimativa da segunda medida:" << endl;
+        cin >> m2.valor;
+        cout << "Digite a incerteza da segunda medida:" << endl;
+        cin >> m2.incerteza;
+
+        double MelhorEstimativa = m1.valor / m2.valor;
+        double IncertezaFinal = (m1.incerteza / m2.valor) + ((m1.valor / (m2.valor * m2.valor)) * m2.incerteza);
+
+        cout << "Resultado da operacao " << k + 1 << ":" << endl;
+        cout << MelhorEstimativa << " +/- " << IncertezaFinal << endl;
+    }
+}
+
+void potencia() {
+    int vezes;
+    cout << "Digite quantas vezes deseja realizar a operacao:" << endl;
+    cin >> vezes;
+
+    for (int k = 0; k < vezes; k++) {
+        Medida m1;
+        double expoente;
+        cout << "Digite a melhor estimativa da medida:" << endl;
+        cin >> m1.valor;
+        cout << "Digite a incerteza da medida:" << endl;
+        cin >> m1.incerteza;
+        cout << "Digite o expoente:" << endl;
+        cin >> expoente;
+
+        double MelhorEstimativa = pow(m1.valor, expoente);
+        double IncertezaFinal = expoente * pow(m1.valor, expoente - 1) * m1.incerteza;
+
+        cout << "Resultado da operacao " << k + 1 << ":" << endl;
+        cout << MelhorEstimativa << " +/- " << IncertezaFinal << endl;
+    }
+}
+
+void MultPorEscalar() {
+    int vezes;
+    cout << "Digite quantas vezes deseja realizar a operacao:" << endl;
+    cin >> vezes;
+
+    for (int k = 0; k < vezes; k++) {
+        Medida m1;
+        double escalar;
+        cout << "Digite a melhor estimativa da medida:" << endl;
+        cin >> m1.valor;
+        cout << "Digite a incerteza da medida:" << endl;
+        cin >> m1.incerteza;
+        cout << "Digite o escalar:" << endl;
+        cin >> escalar;
+
+        double MelhorEstimativa = m1.valor * escalar;
+        double IncertezaFinal = m1.incerteza * escalar;
+
+        cout << "Resultado da operacao " << k + 1 << ":" << endl;
+        cout << MelhorEstimativa << " +/- " << IncertezaFinal << endl;
+    }
+}
+
+void discrepancia() {
+    int vezes;
+    cout << "Digite quantas vezes deseja realizar a operacao:" << endl;
+    cin >> vezes;
+
+    for (int k = 0; k < vezes; k++) {
+        Medida m1, m2;
+        cout << "Digite a melhor estimativa da primeira medida:" << endl;
+        cin >> m1.valor;
+        cout << "Digite a incerteza da primeira medida:" << endl;
+        cin >> m1.incerteza;
+        cout << "Digite a melhor estimativa da segunda medida:" << endl;
+        cin >> m2.valor;
+        cout << "Digite a incerteza da segunda medida:" << endl;
+        cin >> m2.incerteza;
+
+        double discrepancia = fabs(m1.valor - m2.valor);
+        double incertezaTotal = m1.incerteza + m2.incerteza;
+
+        cout << "Resultado da operacao " << k + 1 << ":" << endl;
+        cout << "Discrepancia: " << discrepancia << endl;
+        cout << "Incerteza Total: " << incertezaTotal << endl;
+
+        if (discrepancia > incertezaTotal) {
+            cout << "Discrepancia significante" << endl;
+        } else {
+            cout << "Discrepancia insignificante" << endl;
+        }
+    }
+}
+
+int main() {
+    int opcao;
+    menu();
+    cin >> opcao;
+
+    switch (opcao) {
+        case 1:
+            ErroAleatorio();
+            break;
+        case 2:
+            Soma();
+            break;
+        case 3:
+            Subtracao();
+            break;
+        case 4:
+            Multiplicacao();
+            break;
+        case 5:
+            Divisao();
+            break;
+        case 6:
+            potencia();
+            break;
+        case 7:
+            MultPorEscalar();
+            break;
+        case 8:
+            discrepancia();
+            break;
+        default:
+            cout << "Opcao invalida" << endl;
+    }
+
+    return 0;
+}
