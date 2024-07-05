@@ -1,13 +1,17 @@
+//INICIANDO INCLUINDO AS BIBLIOTECAS  
+
 #include <iostream>
 #include <cmath>
 #include <vector>
 using namespace std;
 
-// Definindo uma struct para representar uma medida com sua incerteza
+// DEFININDO UMA STRUCT PARA REPRESENTAR UMA MEDIDA COM SUA INCERTEZA 
 struct Medida {
     double valor;
     double incerteza;
 };
+
+//ESTRUTURA PARA O MENU PRINCIPAL 
 
 void menu() {
     cout << "Escolha uma opcao:" << endl;
@@ -22,6 +26,8 @@ void menu() {
     cout << "" << endl;
     cout << "Digite a opcao desejada:" << endl;
 }
+
+//CRIACAO DAS FUNCOES PARA CADA OPCAO DISPONIVEL 
 
 void ErroAleatorio() {
     int n;
@@ -222,6 +228,8 @@ void discrepancia() {
         }
     }
 }
+
+//INICIANDO A FUNCAO PRINCIPAL E O CONDICONAL DE ACORDO COM A OPCAO DESEJADA PELO USUARIO E DEPOIS FINALIZANDO 
 
 int main() {
     int opcao;
